@@ -1,10 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Header from './Header';
+import Header from './components/Header/Header';
 import Navbar from './Navbar';
-import Profile from './Profile';
-import Footer from './Footer';
+import Profile from './components/Profile/Profile';
+import Footer from './components/Footer/Footer';
 
 
 function App() {
