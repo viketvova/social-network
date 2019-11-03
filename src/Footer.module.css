@@ -1,0 +1,9 @@
+.footer {
+  grid-area: f;
+  text-align: center;
+  color: blue;
+  background-color: aqua;
+}
+.new {
+  color: black;
+}
