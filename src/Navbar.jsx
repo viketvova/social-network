@@ -11,19 +11,19 @@ const Navbar = () => {
   return (
     <nav className={s.nav}>
       <div className={s.item}>
-        <a>Profile</a>
+        <a href="/profile">Profile</a>
       </div>
       <div className={`${s.item} ${s.active}`}>
-        <a>Messages</a>
+        <a href="Dialogs">Messages</a>
       </div>
       <div className={s.item}>
-        <a>News</a>
+        <a href="News">News</a>
       </div>
       <div className={s.item}>
-        <a>Music</a>
+        <a href="Music">Music</a>
       </div>
       <div className={s.item}>
-        <a>Settings</a>
+        <a href="Settings">Settings</a>
       </div>
     </nav>
 
