@@ -1,5 +1,6 @@
 import React from 'react';
 import s from'./Navbar.module.css';
+import {NavLink} from "react-router-dom";
 
 // Что такое s - это объект:
 // let s = {
@@ -11,19 +12,19 @@ const Navbar = () => {
   return (
     <nav className={s.nav}>
       <div className={s.item}>
-        <a href="/profile">Profile</a>
+        <NavLink to="/profile" activeClassName={s.active}>Profile</NavLink>
       </div>
-      <div className={`${s.item} ${s.active}`}>
-        <a href="Dialogs">Messages</a>
-      </div>
-      <div className={s.item}>
-        <a href="News">News</a>
+      <div className={s.item} >
+        <NavLink to="/dialogs" activeClassName={s.active}>Messages</NavLink>
       </div>
       <div className={s.item}>
-        <a href="Music">Music</a>
+        <NavLink to="/news" activeClassName={s.active}>News</NavLink>
       </div>
       <div className={s.item}>
-        <a href="Settings">Settings</a>
+        <NavLink to="/music" activeClassName={s.active}>Music</NavLink>
+      </div>
+      <div className={s.item}>
+        <NavLink to="/settings" activeClassName={s.active}>Settings</NavLink>
       </div>
     </nav>
 

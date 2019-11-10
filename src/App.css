@@ -6,7 +6,7 @@
             "h h"
             "n c"
             "f f";
-    grid-template-rows: 1fr 5fr 1fr;
+    grid-template-rows: 60px 5fr 1fr;
     grid-template-columns: 2fr 10fr;
     column-gap: 10px;
     row-gap: 10px;
