@@ -20,7 +20,9 @@ const MyPosts = () => {
         <div>
           <button>Add post</button>
         </div>
-        <div className={p.posts}>{postsElements}</div>
+        <div className={p.posts}>
+            {postsElements}
+            </div>
       </div>
       {/* <Post />
         <Post /> */}

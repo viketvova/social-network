@@ -1,18 +1,8 @@
 import React from "react";
 import s from "./Dialogs.module.css";
-import { NavLink } from "react-router-dom";
+import DialogItem from "./DialogItem/DialogItem"
+import Message from "./Message/Message"
 
-const DialogItem = props => {
-  return (
-    //Вынести NavLink можно создав переменную: let path=`/dialogs/${props.id}` и в NavLink заменить на path
-    <div className={s.dialog}>
-      <NavLink to={`/dialogs/${props.id}`}>{props.name}</NavLink>
-    </div>
-  );
-};
-const Message = props => {
-  return <div className={s.message}>{props.message}</div>;
-};
 
 const Dialogs = props => {
   let dialogsData = [
