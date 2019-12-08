@@ -1,17 +1,16 @@
-import React from 'react';
-import p from './Post.module.css';
+import React from "react";
+import p from "./Post.module.css";
 
-const Post = (props) => {
+const Post = props => {
   return (
     <div className={p.item}>
       <img src="https://www.meme-arsenal.com/memes/7bdea6754f999b50e9577596f09197fb.jpg" />
       {props.message}
-          <div>
+      <div>
         <span>like {props.likecount}</span>
       </div>
     </div>
   );
-}
-
+};
 
 export default Post;
