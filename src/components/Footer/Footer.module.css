@@ -1,9 +1,10 @@
 .footer {
-  grid-area: f;
-  text-align: center;
-  color: blue;
-  background-color: aqua;
+    grid-area: f;
+    text-align: center;
+    color: blue;
+    background-color: #efb21a;
 }
+
 .new {
-  color: black;
+    color: black;
 }
