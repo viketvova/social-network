@@ -2,17 +2,17 @@ import classes from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 
+type DialogsDataProps = {id: number, name: string}[]
+type MessageDataProps = {id: number, text: string}[]
+type MessagesPageProps = {messageData: MessageDataProps, dialogsData: DialogsDataProps}
 type PropsType = {
-    dialogsData: {
-        id: number, name: string
-    }[],
-    messageData: {id: number, text: string}[],
+    state: MessagesPageProps,
 }
 
 
 export function Dialogs(props: PropsType) {
-    let dialogsData = props.dialogsData
-    let messageData = props.messageData
+    let dialogsData = props.state.dialogsData
+    let messageData = props.state.messageData
 
 
     return (

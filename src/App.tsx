@@ -11,28 +11,35 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 
 
-type PropsApp = {
-    dialogsData: {
-        id: number, name: string
-    }[],
-    messageData: {id: number, text: string}[],
-    postsData: {id: number, text: string, likes: number}[],
+type DialogsDataProps = {id: number, name: string}[]
+type MessageDataProps = {id: number, text: string}[]
+type PostsDataProps = {id: number, text: string, likes: number}[]
+type SidebarProps = {id: number, name: string, image: string}[]
+type ProfilePageProps = {postsData: PostsDataProps}
+type MessagesPageProps = {messageData: MessageDataProps, dialogsData: DialogsDataProps}
+type StateProps = {
+    profilePage: ProfilePageProps,
+    dialogsPage: MessagesPageProps,
+    sidebar: SidebarProps,
+}
+type RootStateProps = {
+    state: StateProps
 }
 
-function App(props: PropsApp) {
-    console.log(props)
+function App(props: RootStateProps) {
+
     return (
         <div className="app-wrapper">
-            <Header />
-            <NavBar/>
+            <Header/>
+            <NavBar state={props.state.sidebar}/>
             <div className='app-wrapper-content'>
                 <Switch>
-                    <Route path='/profile' exact render={() => <Profile postsData={props.postsData}/>}/>
-                    <Route path='/dialogs' exact render = {() => <Dialogs dialogsData={props.dialogsData} messageData={props.messageData}/>}/>
+                    <Route path='/profile' exact render={() => <Profile state={props.state.profilePage}/>}/>
+                    <Route path='/dialogs' exact render={() => <Dialogs state={props.state.dialogsPage}/>}/>
                     <Route path='/news' exact component={News}/>
                     <Route path='/music' exact component={Music}/>
                     <Route path='/settings' exact component={Settings}/>
-                    <Route path='/' />
+                    <Route path='/'/>
                 </Switch>
             </div>
             <Footer/>

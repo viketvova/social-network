@@ -1,0 +1,12 @@
+.friend {
+    display: inline-block; /* Отображать как строчный элемент */
+    margin: 5px;
+}
+
+.friend img {
+    display: block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin: 0 auto;
+}
