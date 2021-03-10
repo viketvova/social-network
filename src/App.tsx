@@ -11,6 +11,7 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 
 
+
 type DialogsDataProps = {id: number, name: string}[]
 type MessageDataProps = {id: number, text: string}[]
 type PostsDataProps = {id: number, text: string, likes: number}[]
@@ -22,8 +23,12 @@ type StateProps = {
     dialogsPage: MessagesPageProps,
     sidebar: SidebarProps,
 }
+type OnChangeHandlerType = (event: string) => void
+
 type RootStateProps = {
-    state: StateProps
+    state: StateProps,
+    onChangeHandler: OnChangeHandlerType,
+    changeMessage: OnChangeHandlerType,
 }
 
 function App(props: RootStateProps) {
@@ -34,8 +39,8 @@ function App(props: RootStateProps) {
             <NavBar state={props.state.sidebar}/>
             <div className='app-wrapper-content'>
                 <Switch>
-                    <Route path='/profile' exact render={() => <Profile state={props.state.profilePage}/>}/>
-                    <Route path='/dialogs' exact render={() => <Dialogs state={props.state.dialogsPage}/>}/>
+                    <Route path='/profile' exact render={() => <Profile state={props.state.profilePage} onChangeHandler={props.onChangeHandler}/>}/>
+                    <Route path='/dialogs' exact render={() => <Dialogs state={props.state.dialogsPage} changeMessage={props.changeMessage}/>}/>
                     <Route path='/news' exact component={News}/>
                     <Route path='/music' exact component={Music}/>
                     <Route path='/settings' exact component={Settings}/>
