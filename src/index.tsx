@@ -1,8 +1,24 @@
-import {rerenderEntireTree} from "./render";
-import state from "./redux/state";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {BrowserRouter} from "react-router-dom";
+import './index.css';
+import App from './App';
+import store, {StateProps} from "./redux/state";
 
+let rerenderEntireTree = (state: StateProps) => {
 
-rerenderEntireTree(state);
+    ReactDOM.render(
+        <BrowserRouter>
+            <React.StrictMode>
+                <App state={state}
+                     onChangeHandler={store.onChangeHandler.bind(store)}
+                     changeMessage={store.changeMessage.bind(store)}
+                     updateNewPostText={store.updateNewPostText.bind(store)}/>
+            </React.StrictMode>
+        </BrowserRouter>,
+        document.getElementById('root')
+    );
+}
 
-
-
+rerenderEntireTree(store.getState());
+store.subscribe(rerenderEntireTree)

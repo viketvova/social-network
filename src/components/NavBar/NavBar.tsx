@@ -1,8 +1,8 @@
 import classes from './NavBar.module.css';
 import {NavLink} from "react-router-dom";
 import {Friend} from "./Friend/Friend";
+import { SidebarProps } from '../../redux/state';
 
-type SidebarProps = {id: number, name: string, image: string}[]
 type StateProps = {state: SidebarProps}
 
 export function NavBar(props: StateProps) {

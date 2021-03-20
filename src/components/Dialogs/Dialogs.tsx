@@ -2,11 +2,9 @@ import classes from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {createRef} from "react";
+import {ChangeMessageProps, MessagesPageProps} from '../../redux/state';
 
-type DialogsDataProps = { id: number, name: string }[]
-type MessageDataProps = { id: number, text: string }[]
-type MessagesPageProps = { messageData: MessageDataProps, dialogsData: DialogsDataProps }
-type ChangeMessageProps = (event: string) => void
+
 type PropsType = {
     state: MessagesPageProps,
     changeMessage: ChangeMessageProps
@@ -44,7 +42,7 @@ export function Dialogs(props: PropsType) {
             </div>
             <div>
                 <div>
-                    <textarea ref={valueArea}></textarea>
+                    <textarea ref={valueArea} />
                 </div>
                 <div>
                     <button onClick={onClickHandler}>Add Post</button>

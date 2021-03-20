@@ -9,29 +9,17 @@ import {Profile} from "./components/Profile/Profile";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
+import {ChangeMessageProps, OnChangeHandlerProps, StateProps, UpdateNewPostTextProps} from "./redux/state";
 
 
-
-type DialogsDataProps = {id: number, name: string}[]
-type MessageDataProps = {id: number, text: string}[]
-type PostsDataProps = {id: number, text: string, likes: number}[]
-type SidebarProps = {id: number, name: string, image: string}[]
-type ProfilePageProps = {postsData: PostsDataProps}
-type MessagesPageProps = {messageData: MessageDataProps, dialogsData: DialogsDataProps}
-type StateProps = {
-    profilePage: ProfilePageProps,
-    dialogsPage: MessagesPageProps,
-    sidebar: SidebarProps,
-}
-type OnChangeHandlerType = (event: string) => void
-
-type RootStateProps = {
+type PropsType = {
     state: StateProps,
-    onChangeHandler: OnChangeHandlerType,
-    changeMessage: OnChangeHandlerType,
+    onChangeHandler: OnChangeHandlerProps
+    changeMessage: ChangeMessageProps,
+    updateNewPostText: UpdateNewPostTextProps
 }
 
-function App(props: RootStateProps) {
+function App(props: PropsType) {
 
     return (
         <div className="app-wrapper">
@@ -39,8 +27,16 @@ function App(props: RootStateProps) {
             <NavBar state={props.state.sidebar}/>
             <div className='app-wrapper-content'>
                 <Switch>
-                    <Route path='/profile' exact render={() => <Profile state={props.state.profilePage} onChangeHandler={props.onChangeHandler}/>}/>
-                    <Route path='/dialogs' exact render={() => <Dialogs state={props.state.dialogsPage} changeMessage={props.changeMessage}/>}/>
+                    <Route path='/profile' exact render={() =>
+                    <Profile
+                        state={props.state.profilePage}
+                        onChangeHandler={props.onChangeHandler}
+                        updateNewPostText={props.updateNewPostText}
+                    />}/>
+                    <Route path='/dialogs' exact render={() =>
+                        <Dialogs state={props.state.dialogsPage}
+                                 changeMessage={props.changeMessage}
+                        />}/>
                     <Route path='/news' exact component={News}/>
                     <Route path='/music' exact component={Music}/>
                     <Route path='/settings' exact component={Settings}/>

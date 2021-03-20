@@ -1,23 +1,25 @@
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import {OnChangeHandlerProps, ProfilePageProps, UpdateNewPostTextProps} from "../../redux/state";
 
 
-type PostsDataProps = {id: number, text: string, likes: number}[]
-type ProfilePageProps = {postsData: PostsDataProps}
-type OnChangeHandlerType = (event: string) => void
-type StateProps = {
-    state: ProfilePageProps,
-    onChangeHandler: OnChangeHandlerType,
+type PropsType = {
+    state: ProfilePageProps
+    onChangeHandler: OnChangeHandlerProps,
+    updateNewPostText: UpdateNewPostTextProps
 }
 
-
-export function Profile(props: StateProps) {
+export function Profile(props: PropsType) {
     let postsData = props.state.postsData
 
     return (
         <div>Main content
             <ProfileInfo/>
-            <MyPosts newMessage={postsData} onChangeHandler={props.onChangeHandler}/>
+            <MyPosts newMessage={postsData}
+                     onChangeHandler={props.onChangeHandler}
+                     newPostText={props.state.newPostText}
+                     updateNewPostText={props.updateNewPostText}
+            />
         </div>
     )
 }
