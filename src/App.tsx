@@ -15,9 +15,6 @@ import {DispatchType, StateProps} from "./redux/state";
 type PropsType = {
     state: StateProps,
     dispatch: DispatchType
-    // onChangeHandler: OnChangeHandlerProps
-    // changeMessage: ChangeMessageProps,
-    // updateNewPostText: UpdateNewPostTextProps
 }
 
 function App(props: PropsType) {

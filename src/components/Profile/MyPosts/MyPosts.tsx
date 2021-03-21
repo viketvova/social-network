@@ -1,15 +1,19 @@
 import classes from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 import React, {createRef} from "react";
-import {DispatchType, NewPostTextProps, PostsDataProps} from "../../../redux/state";
+import {
+    NewPostTextProps,
+    onClickHandlerActionCreator,
+    onPostChangeActionCreator,
+    PostsDataProps
+} from "../../../redux/state";
 
 type PropsType = {
     newMessage: PostsDataProps,
-    dispatch: DispatchType
+    dispatch: (DispatchType) => void
     newPostText: NewPostTextProps,
-    // updateNewPostText: UpdateNewPostTextProps
-    // onChangeHandler: OnChangeHandlerProps,
 }
+
 
 export function MyPosts(props: PropsType) {
 
@@ -18,15 +22,13 @@ export function MyPosts(props: PropsType) {
     let valueArea = createRef()
 
     function onClickHandler() {
-        props.dispatch({type: 'ONCHANGE-HANDLER'})
-        // props.onChangeHandler()
+        props.dispatch(onClickHandlerActionCreator())
     }
 
 
     function onPostChange() {
         let text = valueArea.current.value
-        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: text})
-        // props.updateNewPostText(text)
+        props.dispatch(onPostChangeActionCreator(text))
     }
 
     return (

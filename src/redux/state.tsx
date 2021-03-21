@@ -20,12 +20,13 @@ export type StoreProps = {
     _callSubscriber: (event: StateProps) => void,
     getState: () => StateProps
     subscribe: (observer: (StateProps) => void) => void
-    dispatch: DispatchType
-    // onChangeHandler: () => void,
-    // changeMessage: (event: string) => void
-    // updateNewPostText: (newPostText: string) => void
+    dispatch: (DispatchType) => void
 }
-export type DispatchType = (action: OnChangeHandlerType | UpdateNewPostTextType | ChangeMessageType) => void
+
+export type DispatchType = (action: OnClickHandlerActionCreatorType | OnPostChangeActionCreatorType | ChangeMessageTypeActionCreatorType) => void
+type OnClickHandlerActionCreatorType = () => OnChangeHandlerType
+type OnPostChangeActionCreatorType = (text: string) => UpdateNewPostTextType
+type ChangeMessageTypeActionCreatorType = (text: string) => ChangeMessageType
 
 type OnChangeHandlerType = {
     type: 'ONCHANGE-HANDLER',
@@ -40,6 +41,10 @@ type ChangeMessageType = {
     type: 'CHANGE-MESSAGE',
     event: string
 }
+
+const ONCHANGE_HANDLER = 'ONCHANGE-HANDLER';
+const CHANGE_MESSAGE = 'CHANGE-MESSAGE';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
 let store: StoreProps = {
     _state: {
@@ -115,7 +120,7 @@ let store: StoreProps = {
     //     this._callSubscriber(this._state)
     // },
     dispatch(action) {
-        if (action.type === 'ONCHANGE-HANDLER') {
+        if (action.type === ONCHANGE_HANDLER) {
             let newPost = {
                 id: 4,
                 text: this._state.profilePage.newPostText,
@@ -124,10 +129,10 @@ let store: StoreProps = {
             this._state.profilePage.postsData.push(newPost)
             this._state.profilePage.newPostText = ''
             this._callSubscriber(this._state)
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText
             this._callSubscriber(this._state)
-        } else if (action.type === 'CHANGE-MESSAGE') {
+        } else if (action.type === CHANGE_MESSAGE) {
             let newMessage = {
                 id: 12,
                 text: action.event,
@@ -139,6 +144,11 @@ let store: StoreProps = {
 
 }
 
+export const onClickHandlerActionCreator = (): OnChangeHandlerType => ({type: ONCHANGE_HANDLER})
+export const onPostChangeActionCreator = (text: string): UpdateNewPostTextType => ({
+    type: UPDATE_NEW_POST_TEXT,
+    newText: text
+})
+export const changeMessageActionCreator = (text: string): ChangeMessageType => ({type: CHANGE_MESSAGE, event: text})
 
 export default store;
-// window.store = store;

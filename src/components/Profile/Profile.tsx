@@ -6,8 +6,6 @@ import {DispatchType, ProfilePageProps} from "../../redux/state";
 type PropsType = {
     state: ProfilePageProps
     dispatch: DispatchType
-    // onChangeHandler: OnChangeHandlerProps,
-    // updateNewPostText: UpdateNewPostTextProps
 }
 
 export function Profile(props: PropsType) {
