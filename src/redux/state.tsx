@@ -17,12 +17,28 @@ export type StateProps = {
 
 export type StoreProps = {
     _state: StateProps,
-    _callSubscriber: (event: StateProps) => void ,
-    onChangeHandler: () => void,
-    changeMessage: (event: string) => void
-    updateNewPostText: (newPostText: string) => void
+    _callSubscriber: (event: StateProps) => void,
     getState: () => StateProps
     subscribe: (observer: (StateProps) => void) => void
+    dispatch: DispatchType
+    // onChangeHandler: () => void,
+    // changeMessage: (event: string) => void
+    // updateNewPostText: (newPostText: string) => void
+}
+export type DispatchType = (action: OnChangeHandlerType | UpdateNewPostTextType | ChangeMessageType) => void
+
+type OnChangeHandlerType = {
+    type: 'ONCHANGE-HANDLER',
+}
+
+type UpdateNewPostTextType = {
+    type: 'UPDATE-NEW-POST-TEXT',
+    newText: string
+}
+
+type ChangeMessageType = {
+    type: 'CHANGE-MESSAGE',
+    event: string
 }
 
 let store: StoreProps = {
@@ -49,44 +65,79 @@ let store: StoreProps = {
             ],
         },
         sidebar: [
-            {id: 1, name: 'Andy', image: 'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-contact-512.png'},
-            {id: 2, name: 'Mary', image: 'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-contact-512.png'},
-            {id: 3, name: 'Tony', image: 'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-contact-512.png'},
+            {
+                id: 1,
+                name: 'Andy',
+                image: 'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-contact-512.png'
+            },
+            {
+                id: 2,
+                name: 'Mary',
+                image: 'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-contact-512.png'
+            },
+            {
+                id: 3,
+                name: 'Tony',
+                image: 'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-contact-512.png'
+            },
         ]
+    },
+    _callSubscriber(event) {
+        console.log('state changed')
     },
     getState() {
         return this._state
     },
-    _callSubscriber (event) {
-        console.log('state changed')
-    },
-    onChangeHandler(): void {
-        let newPost = {
-            id: 4,
-            text: this._state.profilePage.newPostText,
-            likes: 0
-        }
-        this._state.profilePage.postsData.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber(this._state)
-    },
-    changeMessage(event: string): void {
-        let newMessage = {
-            id: 12,
-            text: event,
-        }
-        this._state.dialogsPage.messageData.push(newMessage)
-        this._callSubscriber(this._state)
-    },
-    updateNewPostText(newPostText: string): void{
-        this._state.profilePage.newPostText = (newPostText)
-        this._callSubscriber(this._state)
-    },
     subscribe(observer) {
         this._callSubscriber = observer
     },
-}
 
+    // onChangeHandler(): void {
+    //     let newPost = {
+    //         id: 4,
+    //         text: this._state.profilePage.newPostText,
+    //         likes: 0
+    //     }
+    //     this._state.profilePage.postsData.push(newPost)
+    //     this._state.profilePage.newPostText = ''
+    //     this._callSubscriber(this._state)
+    // },
+    // changeMessage(event: string): void {
+    //     let newMessage = {
+    //         id: 12,
+    //         text: event,
+    //     }
+    //     this._state.dialogsPage.messageData.push(newMessage)
+    //     this._callSubscriber(this._state)
+    // },
+    // updateNewPostText(newPostText: string): void{
+    //     this._state.profilePage.newPostText = (newPostText)
+    //     this._callSubscriber(this._state)
+    // },
+    dispatch(action) {
+        if (action.type === 'ONCHANGE-HANDLER') {
+            let newPost = {
+                id: 4,
+                text: this._state.profilePage.newPostText,
+                likes: 0
+            }
+            this._state.profilePage.postsData.push(newPost)
+            this._state.profilePage.newPostText = ''
+            this._callSubscriber(this._state)
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText
+            this._callSubscriber(this._state)
+        } else if (action.type === 'CHANGE-MESSAGE') {
+            let newMessage = {
+                id: 12,
+                text: action.event,
+            }
+            this._state.dialogsPage.messageData.push(newMessage)
+            this._callSubscriber(this._state)
+        }
+    }
+
+}
 
 
 export default store;

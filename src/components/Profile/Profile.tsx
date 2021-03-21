@@ -1,12 +1,13 @@
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {OnChangeHandlerProps, ProfilePageProps, UpdateNewPostTextProps} from "../../redux/state";
+import {DispatchType, ProfilePageProps} from "../../redux/state";
 
 
 type PropsType = {
     state: ProfilePageProps
-    onChangeHandler: OnChangeHandlerProps,
-    updateNewPostText: UpdateNewPostTextProps
+    dispatch: DispatchType
+    // onChangeHandler: OnChangeHandlerProps,
+    // updateNewPostText: UpdateNewPostTextProps
 }
 
 export function Profile(props: PropsType) {
@@ -16,9 +17,8 @@ export function Profile(props: PropsType) {
         <div>Main content
             <ProfileInfo/>
             <MyPosts newMessage={postsData}
-                     onChangeHandler={props.onChangeHandler}
                      newPostText={props.state.newPostText}
-                     updateNewPostText={props.updateNewPostText}
+                     dispatch={props.dispatch}
             />
         </div>
     )

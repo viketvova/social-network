@@ -9,14 +9,15 @@ import {Profile} from "./components/Profile/Profile";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {ChangeMessageProps, OnChangeHandlerProps, StateProps, UpdateNewPostTextProps} from "./redux/state";
+import {DispatchType, StateProps} from "./redux/state";
 
 
 type PropsType = {
     state: StateProps,
-    onChangeHandler: OnChangeHandlerProps
-    changeMessage: ChangeMessageProps,
-    updateNewPostText: UpdateNewPostTextProps
+    dispatch: DispatchType
+    // onChangeHandler: OnChangeHandlerProps
+    // changeMessage: ChangeMessageProps,
+    // updateNewPostText: UpdateNewPostTextProps
 }
 
 function App(props: PropsType) {
@@ -28,14 +29,13 @@ function App(props: PropsType) {
             <div className='app-wrapper-content'>
                 <Switch>
                     <Route path='/profile' exact render={() =>
-                    <Profile
-                        state={props.state.profilePage}
-                        onChangeHandler={props.onChangeHandler}
-                        updateNewPostText={props.updateNewPostText}
-                    />}/>
+                        <Profile
+                            state={props.state.profilePage}
+                            dispatch={props.dispatch}
+                        />}/>
                     <Route path='/dialogs' exact render={() =>
                         <Dialogs state={props.state.dialogsPage}
-                                 changeMessage={props.changeMessage}
+                                 dispatch={props.dispatch}
                         />}/>
                     <Route path='/news' exact component={News}/>
                     <Route path='/music' exact component={Music}/>

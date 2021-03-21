@@ -2,12 +2,13 @@ import classes from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {createRef} from "react";
-import {ChangeMessageProps, MessagesPageProps} from '../../redux/state';
+import {DispatchType, MessagesPageProps} from '../../redux/state';
 
 
 type PropsType = {
     state: MessagesPageProps,
-    changeMessage: ChangeMessageProps
+    // changeMessage: ChangeMessageProps
+    dispatch: DispatchType
 }
 
 
@@ -15,11 +16,12 @@ export function Dialogs(props: PropsType) {
     let dialogsData = props.state.dialogsData
     let messageData = props.state.messageData
 
- let valueArea = createRef()
+    let valueArea = createRef()
 
     function onClickHandler() {
         let text = valueArea.current.value
-        props.changeMessage(text)
+        // props.changeMessage(text)
+        props.dispatch({type: 'CHANGE-MESSAGE', event: text})
         valueArea.current.value = ''
     }
 
@@ -42,7 +44,7 @@ export function Dialogs(props: PropsType) {
             </div>
             <div>
                 <div>
-                    <textarea ref={valueArea} />
+                    <textarea ref={valueArea}/>
                 </div>
                 <div>
                     <button onClick={onClickHandler}>Add Post</button>
