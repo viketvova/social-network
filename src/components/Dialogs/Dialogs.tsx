@@ -1,8 +1,9 @@
 import classes from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {createRef} from "react";
-import {changeMessageActionCreator, MessagesPageProps} from '../../redux/state';
+
+import {changeMessageActionCreator, onChangeHandlerActionCreator} from '../../redux/DialogsReducer';
+import { MessagesPageProps } from '../../redux/state';
 
 
 type PropsType = {
@@ -15,12 +16,14 @@ export function Dialogs(props: PropsType) {
     let dialogsData = props.state.dialogsData
     let messageData = props.state.messageData
 
-    let valueArea = createRef()
+
+    function onChangeHandler(e) {
+        let text = e.target.value
+        props.dispatch(onChangeHandlerActionCreator(text))
+    }
 
     function onClickHandler() {
-        let text = valueArea.current.value
-        props.dispatch(changeMessageActionCreator(text))
-        valueArea.current.value = ''
+        props.dispatch(changeMessageActionCreator())
     }
 
     return (
@@ -42,7 +45,7 @@ export function Dialogs(props: PropsType) {
             </div>
             <div>
                 <div>
-                    <textarea ref={valueArea}/>
+                    <textarea onChange={onChangeHandler} value={props.state.newDialog}/>
                 </div>
                 <div>
                     <button onClick={onClickHandler}>Add Post</button>

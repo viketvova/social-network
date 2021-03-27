@@ -1,10 +1,15 @@
+import profileReducer from "./ProfileReducer";
+import dialogsReducer from "./DialogsReducer";
+import sidebarReducer from "./SidebarReducer";
+
 export type DialogsDataProps = { id: number, name: string }[]
 export type MessageDataProps = { id: number, text: string }[]
 export type PostsDataProps = { id: number, text: string, likes: number }[]
 export type SidebarProps = { id: number, name: string, image: string }[]
 export type NewPostTextProps = string
+export type NewDialogType = string
 export type ProfilePageProps = { postsData: PostsDataProps, newPostText: NewPostTextProps }
-export type MessagesPageProps = { messageData: MessageDataProps, dialogsData: DialogsDataProps }
+export type MessagesPageProps = { messageData: MessageDataProps, dialogsData: DialogsDataProps, newDialog: NewDialogType }
 export type OnChangeHandlerProps = () => void
 export type ChangeMessageProps = (event: string) => void
 export type UpdateNewPostTextProps = (newPostText: string) => void
@@ -12,7 +17,7 @@ export type UpdateNewPostTextProps = (newPostText: string) => void
 export type StateProps = {
     profilePage: ProfilePageProps,
     dialogsPage: MessagesPageProps,
-    sidebar: SidebarProps
+    sidebar: SidebarProps | any
 }
 
 export type StoreProps = {
@@ -23,28 +28,30 @@ export type StoreProps = {
     dispatch: (DispatchType) => void
 }
 
-export type DispatchType = (action: OnClickHandlerActionCreatorType | OnPostChangeActionCreatorType | ChangeMessageTypeActionCreatorType) => void
-type OnClickHandlerActionCreatorType = () => OnChangeHandlerType
-type OnPostChangeActionCreatorType = (text: string) => UpdateNewPostTextType
-type ChangeMessageTypeActionCreatorType = (text: string) => ChangeMessageType
+export type DispatchType = (action: OnClickHandlerActionCreatorType | OnPostChangeActionCreatorType | ChangeMessageTypeActionCreatorType | OnChangeHandlerActionCreatorType) => void
+export type OnClickHandlerActionCreatorType = () => OnChangeHandlerType
+export type OnPostChangeActionCreatorType = (text: string) => UpdateNewPostTextType
+export type ChangeMessageTypeActionCreatorType = () => ChangeMessageType
+export type OnChangeHandlerActionCreatorType = (text: string) => OnChangeHandlerMessageType
 
-type OnChangeHandlerType = {
+
+export type OnChangeHandlerMessageType = {
+    type: 'MESSAGE-HANDLER',
+    newDialog: string
+}
+
+export type OnChangeHandlerType = {
     type: 'ONCHANGE-HANDLER',
 }
 
-type UpdateNewPostTextType = {
+export type UpdateNewPostTextType = {
     type: 'UPDATE-NEW-POST-TEXT',
     newText: string
 }
 
-type ChangeMessageType = {
+export type ChangeMessageType = {
     type: 'CHANGE-MESSAGE',
-    event: string
-}
-
-const ONCHANGE_HANDLER = 'ONCHANGE-HANDLER';
-const CHANGE_MESSAGE = 'CHANGE-MESSAGE';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+ }
 
 let store: StoreProps = {
     _state: {
@@ -68,6 +75,7 @@ let store: StoreProps = {
                 {id: 3, name: 'Tony'},
                 {id: 4, name: 'Ann'},
             ],
+            newDialog: ''
         },
         sidebar: [
             {
@@ -97,58 +105,13 @@ let store: StoreProps = {
         this._callSubscriber = observer
     },
 
-    // onChangeHandler(): void {
-    //     let newPost = {
-    //         id: 4,
-    //         text: this._state.profilePage.newPostText,
-    //         likes: 0
-    //     }
-    //     this._state.profilePage.postsData.push(newPost)
-    //     this._state.profilePage.newPostText = ''
-    //     this._callSubscriber(this._state)
-    // },
-    // changeMessage(event: string): void {
-    //     let newMessage = {
-    //         id: 12,
-    //         text: event,
-    //     }
-    //     this._state.dialogsPage.messageData.push(newMessage)
-    //     this._callSubscriber(this._state)
-    // },
-    // updateNewPostText(newPostText: string): void{
-    //     this._state.profilePage.newPostText = (newPostText)
-    //     this._callSubscriber(this._state)
-    // },
     dispatch(action) {
-        if (action.type === ONCHANGE_HANDLER) {
-            let newPost = {
-                id: 4,
-                text: this._state.profilePage.newPostText,
-                likes: 0
-            }
-            this._state.profilePage.postsData.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber(this._state)
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.newText
-            this._callSubscriber(this._state)
-        } else if (action.type === CHANGE_MESSAGE) {
-            let newMessage = {
-                id: 12,
-                text: action.event,
-            }
-            this._state.dialogsPage.messageData.push(newMessage)
-            this._callSubscriber(this._state)
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+
+        this._callSubscriber(this._state)
     }
-
 }
-
-export const onClickHandlerActionCreator = (): OnChangeHandlerType => ({type: ONCHANGE_HANDLER})
-export const onPostChangeActionCreator = (text: string): UpdateNewPostTextType => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text
-})
-export const changeMessageActionCreator = (text: string): ChangeMessageType => ({type: CHANGE_MESSAGE, event: text})
 
 export default store;

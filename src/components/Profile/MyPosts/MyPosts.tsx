@@ -1,12 +1,12 @@
 import classes from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import React, {createRef} from "react";
+import React from "react";
 import {
     NewPostTextProps,
-    onClickHandlerActionCreator,
-    onPostChangeActionCreator,
     PostsDataProps
 } from "../../../redux/state";
+import { onClickHandlerActionCreator, onPostChangeActionCreator } from "../../../redux/ProfileReducer";
+
 
 type PropsType = {
     newMessage: PostsDataProps,
@@ -19,15 +19,14 @@ export function MyPosts(props: PropsType) {
 
     let postsData = props.newMessage
 
-    let valueArea = createRef()
 
     function onClickHandler() {
         props.dispatch(onClickHandlerActionCreator())
     }
 
 
-    function onPostChange() {
-        let text = valueArea.current.value
+    function onPostChange(e) {
+        let text = e.target.value
         props.dispatch(onPostChangeActionCreator(text))
     }
 
@@ -37,7 +36,6 @@ export function MyPosts(props: PropsType) {
             <div>
                 <div>
                     <textarea
-                        ref={valueArea}
                         value={props.newPostText}
                         onChange={onPostChange}
                     />
