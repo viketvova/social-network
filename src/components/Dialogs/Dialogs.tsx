@@ -3,7 +3,7 @@ import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 
 import {changeMessageActionCreator, onChangeHandlerActionCreator} from '../../redux/DialogsReducer';
-import { MessagesPageProps } from '../../redux/state';
+import { MessagesPageProps } from '../../redux/store';
 
 
 type PropsType = {

@@ -1,7 +1,7 @@
 import classes from "../Dialogs.module.css";
 
 type MessagePropsType = {
-    key: number,
+    key: string,
     message: string,
 }
 

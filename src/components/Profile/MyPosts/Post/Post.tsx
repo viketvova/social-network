@@ -3,7 +3,7 @@ import classes from "./Post.module.css";
 type PropsType = {
     message: string,
     likeCount: number,
-    key: number,
+    key: string,
 }
 
 export function Post(props: PropsType) {

@@ -1,11 +1,12 @@
 import profileReducer from "./ProfileReducer";
 import dialogsReducer from "./DialogsReducer";
 import sidebarReducer from "./SidebarReducer";
+import { v1 } from "uuid";
 
-export type DialogsDataProps = { id: number, name: string }[]
-export type MessageDataProps = { id: number, text: string }[]
-export type PostsDataProps = { id: number, text: string, likes: number }[]
-export type SidebarProps = { id: number, name: string, image: string }[]
+export type DialogsDataProps = { id: string, name: string }[]
+export type MessageDataProps = { id: string, text: string }[]
+export type PostsDataProps = { id: string, text: string, likes: number }[]
+export type SidebarProps = { id: string, name: string, image: string }[]
 export type NewPostTextProps = string
 export type NewDialogType = string
 export type ProfilePageProps = { postsData: PostsDataProps, newPostText: NewPostTextProps }
@@ -17,7 +18,7 @@ export type UpdateNewPostTextProps = (newPostText: string) => void
 export type StateProps = {
     profilePage: ProfilePageProps,
     dialogsPage: MessagesPageProps,
-    sidebar: SidebarProps | any
+    sidebar: SidebarProps
 }
 
 export type StoreProps = {
@@ -28,7 +29,8 @@ export type StoreProps = {
     dispatch: (DispatchType) => void
 }
 
-export type DispatchType = (action: OnClickHandlerActionCreatorType | OnPostChangeActionCreatorType | ChangeMessageTypeActionCreatorType | OnChangeHandlerActionCreatorType) => void
+export type DispatchType = (action: OnChangeHandlerType | UpdateNewPostTextType | OnChangeHandlerMessageType | ChangeMessageType) => void
+// export type DispatchType = (action: OnClickHandlerActionCreatorType | OnPostChangeActionCreatorType | ChangeMessageTypeActionCreatorType | OnChangeHandlerActionCreatorType) => void
 export type OnClickHandlerActionCreatorType = () => OnChangeHandlerType
 export type OnPostChangeActionCreatorType = (text: string) => UpdateNewPostTextType
 export type ChangeMessageTypeActionCreatorType = () => ChangeMessageType
@@ -57,39 +59,39 @@ let store: StoreProps = {
     _state: {
         profilePage: {
             postsData: [
-                {id: 1, text: 'Hi, how r u?', likes: 15},
-                {id: 2, text: 'Fine, thank', likes: 10},
-                {id: 3, text: 'Fine, and u?', likes: 1},
+                {id: v1(), text: 'Hi, how r u?', likes: 15},
+                {id: v1(), text: 'Fine, thank', likes: 10},
+                {id: v1(), text: 'Fine, and u?', likes: 1},
             ],
             newPostText: 'it-kam'
         },
         dialogsPage: {
             messageData: [
-                {id: 1, text: 'Hi'},
-                {id: 2, text: 'How r u?'},
-                {id: 3, text: 'Fine, and u?'},
+                {id: v1(), text: 'Hi'},
+                {id: v1(), text: 'How r u?'},
+                {id: v1(), text: 'Fine, and u?'},
             ],
             dialogsData: [
-                {id: 1, name: 'Andrew'},
-                {id: 2, name: 'Mary'},
-                {id: 3, name: 'Tony'},
-                {id: 4, name: 'Ann'},
+                {id: v1(), name: 'Andrew'},
+                {id: v1(), name: 'Mary'},
+                {id: v1(), name: 'Tony'},
+                {id: v1(), name: 'Ann'},
             ],
             newDialog: ''
         },
         sidebar: [
             {
-                id: 1,
+                id: v1(),
                 name: 'Andy',
                 image: 'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-contact-512.png'
             },
             {
-                id: 2,
+                id: v1(),
                 name: 'Mary',
                 image: 'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-contact-512.png'
             },
             {
-                id: 3,
+                id: v1(),
                 name: 'Tony',
                 image: 'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-contact-512.png'
             },

@@ -4,7 +4,7 @@ import React from "react";
 import {
     NewPostTextProps,
     PostsDataProps
-} from "../../../redux/state";
+} from "../../../redux/store";
 import { onClickHandlerActionCreator, onPostChangeActionCreator } from "../../../redux/ProfileReducer";
 
 
