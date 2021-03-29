@@ -1,7 +1,7 @@
 import profileReducer from "./ProfileReducer";
 import dialogsReducer from "./DialogsReducer";
 import sidebarReducer from "./SidebarReducer";
-import { v1 } from "uuid";
+import {v1} from "uuid";
 
 export type DialogsDataProps = { id: string, name: string }[]
 export type MessageDataProps = { id: string, text: string }[]
@@ -12,8 +12,6 @@ export type NewDialogType = string
 export type ProfilePageProps = { postsData: PostsDataProps, newPostText: NewPostTextProps }
 export type MessagesPageProps = { messageData: MessageDataProps, dialogsData: DialogsDataProps, newDialog: NewDialogType }
 export type OnChangeHandlerProps = () => void
-export type ChangeMessageProps = (event: string) => void
-export type UpdateNewPostTextProps = (newPostText: string) => void
 
 export type StateProps = {
     profilePage: ProfilePageProps,
@@ -28,14 +26,6 @@ export type StoreProps = {
     subscribe: (observer: (StateProps) => void) => void
     dispatch: (DispatchType) => void
 }
-
-export type DispatchType = (action: OnChangeHandlerType | UpdateNewPostTextType | OnChangeHandlerMessageType | ChangeMessageType) => void
-// export type DispatchType = (action: OnClickHandlerActionCreatorType | OnPostChangeActionCreatorType | ChangeMessageTypeActionCreatorType | OnChangeHandlerActionCreatorType) => void
-export type OnClickHandlerActionCreatorType = () => OnChangeHandlerType
-export type OnPostChangeActionCreatorType = (text: string) => UpdateNewPostTextType
-export type ChangeMessageTypeActionCreatorType = () => ChangeMessageType
-export type OnChangeHandlerActionCreatorType = (text: string) => OnChangeHandlerMessageType
-
 
 export type OnChangeHandlerMessageType = {
     type: 'MESSAGE-HANDLER',
@@ -53,7 +43,7 @@ export type UpdateNewPostTextType = {
 
 export type ChangeMessageType = {
     type: 'CHANGE-MESSAGE',
- }
+}
 
 let store: StoreProps = {
     _state: {

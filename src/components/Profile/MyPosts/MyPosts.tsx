@@ -5,29 +5,26 @@ import {
     NewPostTextProps,
     PostsDataProps
 } from "../../../redux/store";
-import { onClickHandlerActionCreator, onPostChangeActionCreator } from "../../../redux/ProfileReducer";
+import Button from '@material-ui/core/Button';
 
 
 type PropsType = {
-    newMessage: PostsDataProps,
-    dispatch: (DispatchType) => void
-    newPostText: NewPostTextProps,
+    newPostText: NewPostTextProps
+    postsData: PostsDataProps
+    updateNewPostText: (text:string) => void
+    onChangeHandler: () => void
 }
 
 
 export function MyPosts(props: PropsType) {
 
-    let postsData = props.newMessage
-
-
     function onClickHandler() {
-        props.dispatch(onClickHandlerActionCreator())
+        props.onChangeHandler()
     }
-
 
     function onPostChange(e) {
         let text = e.target.value
-        props.dispatch(onPostChangeActionCreator(text))
+        props.updateNewPostText(text)
     }
 
     return (
@@ -41,13 +38,13 @@ export function MyPosts(props: PropsType) {
                     />
                 </div>
                 <div>
-                    <button onClick={onClickHandler}>Add Post</button>
-                    <button>Remove</button>
+                    <Button variant="contained" color="primary" size={'small'} onClick={onClickHandler}>Add Post</Button>
+                    <Button variant="contained" color="secondary" size={'small'}>Remove</Button>
                 </div>
             </div>
             <div className={classes.post}>
                 {
-                    postsData.map(elem => {
+                    props.postsData.map(elem => {
                         return (
                             <Post key={elem.id} message={elem.text} likeCount={elem.likes}/>
                         )
