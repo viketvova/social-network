@@ -1,28 +1,37 @@
 import React from "react";
 import {onClickHandlerActionCreator, onPostChangeActionCreator} from "../../../redux/ProfileReducer";
 import {MyPosts} from "./MyPosts";
-import {PropsType} from "../../../App";
+import StoreContext from "../../../StoreContext";
 
 
-export function MyPostsContainer(props: PropsType) {
-    let state = props.store.getState()
-
-    function onClickHandler() {
-        props.store.dispatch(onClickHandlerActionCreator())
-    }
-
-
-    function onPostChange(text: string) {
-        props.store.dispatch(onPostChangeActionCreator(text))
-    }
+export function MyPostsContainer() {
 
     return (
-        <MyPosts
-            newPostText={state.profilePage.newPostText}
-            postsData={state.profilePage.postsData}
-            updateNewPostText={onPostChange}
-            onChangeHandler={onClickHandler}
-        />
+        <StoreContext.Consumer>
+            {store => {
+                let state
+                if (store) state = store.getState()
+
+                function onClickHandler() {
+                    if (store) store.dispatch(onClickHandlerActionCreator())
+                }
+
+                function onPostChange(text: string) {
+                    if (store) store.dispatch(onPostChangeActionCreator(text))
+                }
+
+                return (
+                    <MyPosts
+                        newPostText={state.profilePage.newPostText}
+                        postsData={state.profilePage.postsData}
+                        updateNewPostText={onPostChange}
+                        onChangeHandler={onClickHandler}
+                    />
+                )
+            }
+            }
+        </StoreContext.Consumer>
+
     )
 }
 

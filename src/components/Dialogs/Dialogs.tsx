@@ -14,7 +14,6 @@ type DialogsPropsType = {
     dispatchClickHandler: () => void
 }
 
-
 export function Dialogs(props: DialogsPropsType) {
 
     function onChangeHandler(e) {

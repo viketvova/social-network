@@ -1,11 +1,14 @@
 import classes from './NavBar.module.css';
 import {NavLink} from "react-router-dom";
 import {Friend} from "./Friend/Friend";
-import { SidebarProps } from '../../redux/store';
+import {SidebarProps} from '../../redux/store';
 
-type StateProps = {state: SidebarProps}
+type PropsType = {
+    sidebar: SidebarProps
+}
 
-export function NavBar(props: StateProps) {
+export function NavBar(props: PropsType) {
+
     return (
         <nav className={classes.nav}>
             <div className={classes.item}>
@@ -26,7 +29,7 @@ export function NavBar(props: StateProps) {
             <div className={classes.friends}>
                 <h3>Friends</h3>
                 {
-                    props.state.map(elem => <Friend key={elem.id} name={elem.name} image={elem.image} id={elem.id}/>)
+                    props.sidebar.map(elem => <Friend key={elem.id} name={elem.name} image={elem.image} id={elem.id}/>)
                 }
 
             </div>

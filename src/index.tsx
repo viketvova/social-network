@@ -5,15 +5,18 @@ import './index.css';
 import App from './App';
 import {StateProps} from "./redux/store";
 import store from "./redux/redux-store";
+import StoreContext from "./StoreContext";
 
 
 let rerenderEntireTree = (state: StateProps) => {
 
     ReactDOM.render(
         <BrowserRouter>
+            <StoreContext.Provider value={store}>
             <React.StrictMode>
-                <App store={store}/>
+                <App />
             </React.StrictMode>
+            </StoreContext.Provider>
         </BrowserRouter>,
         document.getElementById('root')
     );
