@@ -1,23 +1,28 @@
-import { v1 } from "uuid";
-import {
-    OnChangeHandlerType, ProfilePageProps, UpdateNewPostTextType
-} from "./store";
-
-type ProfileReducerType = (state: ProfilePageProps, action: OnChangeHandlerType | UpdateNewPostTextType) => ProfilePageProps
+import {v1} from "uuid";
 
 const ONCHANGE_HANDLER = 'ONCHANGE-HANDLER';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
-let initialState:ProfilePageProps = {
+export type NewPostTextProps = string
+export type PostsDataProps = { id: string, text: string, likes: number }[]
+export type OnChangeHandlerType = {
+    type: 'ONCHANGE-HANDLER',
+}
+export type UpdateNewPostTextType = {
+    type: 'UPDATE-NEW-POST-TEXT',
+    newText: string
+}
+const initialState = {
     postsData: [
         {id: v1(), text: 'Hi, how r u?', likes: 15},
         {id: v1(), text: 'Fine, thank', likes: 10},
         {id: v1(), text: 'Fine, and u?', likes: 1},
-    ],
-    newPostText: 'it-kam'
+    ] as PostsDataProps,
+    newPostText: 'it-kam' as NewPostTextProps
 }
+export type InitialStateType = typeof initialState
 
-const profileReducer: ProfileReducerType = (state = initialState, action) => {
+let profileReducer = (state: InitialStateType = initialState, action: any): InitialStateType => {
 
     switch (action.type) {
         case ONCHANGE_HANDLER:
@@ -42,5 +47,4 @@ export const onPostChangeActionCreator = (text: string): UpdateNewPostTextType =
     type: UPDATE_NEW_POST_TEXT,
     newText: text
 })
-
 export default profileReducer

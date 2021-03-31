@@ -3,23 +3,23 @@ import dialogsReducer from "./DialogsReducer";
 import sidebarReducer from "./SidebarReducer";
 import {v1} from "uuid";
 
-export type DialogsDataProps = { id: string, name: string }[]
-export type MessageDataProps = { id: string, text: string }[]
-export type PostsDataProps = { id: string, text: string, likes: number }[]
-export type SidebarProps = { id: string, name: string, image: string }[]
-export type NewPostTextProps = string
-export type NewDialogType = string
-export type ProfilePageProps = { postsData: PostsDataProps, newPostText: NewPostTextProps }
-export type MessagesPageProps = { messageData: MessageDataProps, dialogsData: DialogsDataProps, newDialog: NewDialogType }
-export type OnChangeHandlerProps = () => void
+type DialogsDataProps = { id: string, name: string }[]
+type MessageDataProps = { id: string, text: string }[]
+type PostsDataProps = { id: string, text: string, likes: number }[]
+type SidebarProps = { id: string, name: string, image: string }[]
+type NewPostTextProps = string
+type NewDialogType = string
+type ProfilePageProps = { postsData: PostsDataProps, newPostText: NewPostTextProps }
+type MessagesPageProps = { messageData: MessageDataProps, dialogsData: DialogsDataProps, newDialog: NewDialogType }
+type OnChangeHandlerProps = () => void
 
-export type StateProps = {
+type StateProps = {
     profilePage: ProfilePageProps,
     dialogsPage: MessagesPageProps,
     sidebar: SidebarProps
 }
 
-export type StoreProps = {
+type StoreProps = {
     _state: StateProps,
     _callSubscriber: (event: StateProps) => void,
     getState: () => StateProps
@@ -27,21 +27,21 @@ export type StoreProps = {
     dispatch: (DispatchType) => void
 }
 
-export type OnChangeHandlerMessageType = {
+type OnChangeHandlerMessageType = {
     type: 'MESSAGE-HANDLER',
     newDialog: string
 }
 
-export type OnChangeHandlerType = {
+type OnChangeHandlerType = {
     type: 'ONCHANGE-HANDLER',
 }
 
-export type UpdateNewPostTextType = {
+type UpdateNewPostTextType = {
     type: 'UPDATE-NEW-POST-TEXT',
     newText: string
 }
 
-export type ChangeMessageType = {
+type ChangeMessageType = {
     type: 'CHANGE-MESSAGE',
 }
 
@@ -106,4 +106,4 @@ let store: StoreProps = {
     }
 }
 
-export default store;
+// export default store;

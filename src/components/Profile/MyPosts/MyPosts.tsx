@@ -1,20 +1,16 @@
 import classes from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 import React from "react";
-import {
-    NewPostTextProps,
-    PostsDataProps
-} from "../../../redux/store";
 import Button from '@material-ui/core/Button';
+import {PostsDataProps} from "../../../redux/ProfileReducer";
 
 
 type PropsType = {
-    newPostText: NewPostTextProps
+    newPostText: string
     postsData: PostsDataProps
-    updateNewPostText: (text:string) => void
+    updateNewPostText: (text: string) => void
     onChangeHandler: () => void
 }
-
 
 export function MyPosts(props: PropsType) {
 
@@ -38,7 +34,8 @@ export function MyPosts(props: PropsType) {
                     />
                 </div>
                 <div>
-                    <Button variant="contained" color="primary" size={'small'} onClick={onClickHandler}>Add Post</Button>
+                    <Button variant="contained" color="primary" size={'small'} onClick={onClickHandler}>Add
+                        Post</Button>
                     <Button variant="contained" color="secondary" size={'small'}>Remove</Button>
                 </div>
             </div>

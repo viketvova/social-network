@@ -1,12 +1,9 @@
-import { v1 } from "uuid";
-import {
-  SidebarProps
-} from "./store";
+import {v1} from "uuid";
 
 
-type SidebarReducerType = (state: SidebarProps, action: any) => SidebarProps
+export type SidebarProps = { id: string, name: string, image: string }[]
 
-    let initialState: SidebarProps = [
+let initialState = [
     {
         id: v1(),
         name: 'Andy',
@@ -23,10 +20,9 @@ type SidebarReducerType = (state: SidebarProps, action: any) => SidebarProps
         image: 'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-contact-512.png'
     },
 ]
+export type InitialStateType = typeof initialState
 
-
-const sidebarReducer: SidebarReducerType = (state = initialState, action: any): SidebarProps => {
-
+let sidebarReducer = (state: InitialStateType = initialState, action: any): InitialStateType => {
     return state
 }
-export default sidebarReducer
+ export default sidebarReducer

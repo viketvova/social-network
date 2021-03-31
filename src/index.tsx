@@ -3,19 +3,16 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter} from "react-router-dom";
 import './index.css';
 import App from './App';
-import {StateProps} from "./redux/store";
-import store from "./redux/redux-store";
-import { Provider } from "./StoreContext";
+import {Provider} from "react-redux";
+import store, { AppStateType } from "./redux/redux-store";
 
 
-let rerenderEntireTree = (state: StateProps) => {
+let rerenderEntireTree = (state: AppStateType) => {
 
     ReactDOM.render(
         <BrowserRouter>
             <Provider store={store}>
-            <React.StrictMode>
-                <App />
-            </React.StrictMode>
+                <App/>
             </Provider>
         </BrowserRouter>,
         document.getElementById('root')

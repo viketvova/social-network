@@ -1,9 +1,11 @@
 import classes from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {DialogsDataProps, MessageDataProps, NewDialogType} from '../../redux/store';
+
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import {DialogsDataProps, MessageDataProps, NewDialogType} from '../../redux/DialogsReducer';
+
 
 
 type DialogsPropsType = {
@@ -15,7 +17,7 @@ type DialogsPropsType = {
 }
 
 export function Dialogs(props: DialogsPropsType) {
-
+console.log(props)
     function onChangeHandler(e) {
         let text = e.target.value
         props.dispatchChangeHandler(text)

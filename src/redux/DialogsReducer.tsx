@@ -1,31 +1,37 @@
-import { v1 } from "uuid";
-import {
-    ChangeMessageType,
-    MessagesPageProps,
-    OnChangeHandlerMessageType
-} from "./store";
-
-type DialogsReducerType = (state: MessagesPageProps, action:OnChangeHandlerMessageType | ChangeMessageType) => MessagesPageProps
+import {v1} from "uuid";
 
 const CHANGE_MESSAGE = 'CHANGE-MESSAGE';
 const MESSAGE_HANDLER = 'MESSAGE-HANDLER';
 
-let initialState:MessagesPageProps= {
+
+export type MessageDataProps = { id: string, text: string }[]
+export type DialogsDataProps = { id: string, name: string }[]
+export type NewDialogType = string
+export type ChangeMessageType = {
+    type: 'CHANGE-MESSAGE',
+}
+export type OnChangeHandlerMessageType = {
+    type: 'MESSAGE-HANDLER',
+    newDialog: string
+}
+
+const initialState = {
     messageData: [
         {id: v1(), text: 'Hi'},
         {id: v1(), text: 'How r u?'},
         {id: v1(), text: 'Fine, and u?'},
-    ],
+    ] as MessageDataProps,
     dialogsData: [
         {id: v1(), name: 'Andrew'},
         {id: v1(), name: 'Mary'},
         {id: v1(), name: 'Tony'},
         {id: v1(), name: 'Ann'},
-    ],
-    newDialog: ''
+    ] as DialogsDataProps,
+    newDialog: '' as NewDialogType
 }
+export type InitialStateType = typeof initialState
 
-const dialogsReducer: DialogsReducerType = (state = initialState, action) => {
+let dialogsReducer = (state: InitialStateType = initialState, action): InitialStateType => {
 
     switch (action.type) {
         case CHANGE_MESSAGE:
@@ -45,7 +51,7 @@ const dialogsReducer: DialogsReducerType = (state = initialState, action) => {
 }
 
 export const changeMessageActionCreator = (): ChangeMessageType => ({type: CHANGE_MESSAGE})
-export const onChangeHandlerActionCreator = (text: string):OnChangeHandlerMessageType => ({
+export const onChangeHandlerActionCreator = (text: string): OnChangeHandlerMessageType => ({
     type: MESSAGE_HANDLER,
     newDialog: text
 })

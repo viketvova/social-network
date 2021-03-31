@@ -1,39 +1,38 @@
-import {changeMessageActionCreator, onChangeHandlerActionCreator} from '../../redux/DialogsReducer';
-import React from 'react';
+import {
+    changeMessageActionCreator, InitialStateType,
+    onChangeHandlerActionCreator
+} from '../../redux/DialogsReducer';
 import {Dialogs} from "./Dialogs";
-import StoreContext from "../../StoreContext";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
+import {AppStateType} from "../../redux/redux-store";
 
 
-export function DialogsContainer() {
-
-    return (
-        <StoreContext.Consumer>
-            {store => {
-                let state
-                if (store) state = store.getState()
-
-                function onChangeHandler(text) {
-                    if (store) store.dispatch(onChangeHandlerActionCreator(text))
-                }
-
-                function onClickHandler() {
-                    if (store) store.dispatch(changeMessageActionCreator())
-                }
-
-                return (
-                    <Dialogs
-                        newDialog={state.dialogsPage.newDialog}
-                        dialogsData={state.dialogsPage.dialogsData}
-                        messageData={state.dialogsPage.messageData}
-                        dispatchChangeHandler={onChangeHandler}
-                        dispatchClickHandler={onClickHandler}
-                    />
-                )
-
-            }
-            }
-        </StoreContext.Consumer>
-
-    )
+type MapDispatchToPropsType = {
+    dispatchChangeHandler: (text: string) => void
+    dispatchClickHandler: () => void
 }
+
+
+let mapStateToProps = (state: AppStateType): InitialStateType => {
+
+    return {
+        dialogsData: state.dialogsPage.dialogsData,
+        newDialog: state.dialogsPage.newDialog,
+        messageData: state.dialogsPage.messageData
+    }
+}
+
+let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+    return {
+        dispatchChangeHandler: (text: string) => {
+            dispatch(onChangeHandlerActionCreator(text))
+        },
+        dispatchClickHandler: () => {
+            dispatch(changeMessageActionCreator())
+        }
+    }
+}
+
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
