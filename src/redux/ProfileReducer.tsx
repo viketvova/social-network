@@ -25,18 +25,22 @@ export type InitialStateType = typeof initialState
 let profileReducer = (state: InitialStateType = initialState, action: any): InitialStateType => {
 
     switch (action.type) {
-        case ONCHANGE_HANDLER:
+        case ONCHANGE_HANDLER: {
             let newPost = {
                 id: v1(),
                 text: state.newPostText,
                 likes: 0
             }
-            state.postsData.push(newPost)
-            state.newPostText = ''
-            return state
-        case UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.newText
-            return state
+            let stateCopy = JSON.parse(JSON.stringify(state))
+            stateCopy.postsData.push(newPost)
+            stateCopy.newPostText = ''
+            return stateCopy
+        }
+        case UPDATE_NEW_POST_TEXT: {
+            let stateCopy = {...state}
+            stateCopy.newPostText = action.newText
+            return stateCopy
+        }
         default:
             return state
     }
