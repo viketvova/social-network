@@ -33,25 +33,25 @@ export type InitialStateType = typeof initialState
 
 let dialogsReducer = (state: InitialStateType = initialState, action): InitialStateType => {
 
+    let newState
     switch (action.type) {
-        case CHANGE_MESSAGE: {
+        case CHANGE_MESSAGE:
             let newMessage = {
                 id: v1(),
                 text: state.newDialog,
             }
-            let newState = JSON.parse(JSON.stringify(state))
-            newState.messageData.push(newMessage)
-            newState.newDialog = ''
-            // state.messageData.push(newMessage)
-            // state.newDialog = ''
+            newState = {
+                ...state,
+                newDialog: '',
+                messageData: [...state.messageData, newMessage]
+            }
             return newState
-        }
-        case MESSAGE_HANDLER: {
-            let newState = {...state}
-            newState.newDialog = action.newDialog
-            // state.newDialog = action.newDialog
+        case MESSAGE_HANDLER:
+            newState = {
+                ...state,
+                newDialog: action.newDialog
+            }
             return newState
-        }
         default:
             return (state)
     }

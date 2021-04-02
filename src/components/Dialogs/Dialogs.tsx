@@ -17,7 +17,7 @@ type DialogsPropsType = {
 }
 
 export function Dialogs(props: DialogsPropsType) {
-console.log(props)
+
     function onChangeHandler(e) {
         let text = e.target.value
         props.dispatchChangeHandler(text)
