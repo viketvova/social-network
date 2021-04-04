@@ -24,7 +24,6 @@ export type InitialStateType = typeof initialState
 
 let profileReducer = (state: InitialStateType = initialState, action: any): InitialStateType => {
 
-    let stateCopy
     switch (action.type) {
         case ONCHANGE_HANDLER:
             let newPost = {
@@ -32,18 +31,16 @@ let profileReducer = (state: InitialStateType = initialState, action: any): Init
                 text: state.newPostText,
                 likes: 0
             }
-            stateCopy = {
+            return {
                 ...state,
                 postsData: [...state.postsData, newPost],
                 newPostText: ''
             }
-            return stateCopy
         case UPDATE_NEW_POST_TEXT:
-            stateCopy = {
+            return {
                 ...state,
                 newPostText: action.newText
             }
-            return stateCopy
         default:
             return state
     }
