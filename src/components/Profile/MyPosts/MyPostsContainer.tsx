@@ -9,7 +9,7 @@ type MapDispatchToPropsType = {
     updateNewPostText: (text: string) => void,
     onChangeHandler: () => void
 }
-console.log()
+
 let mapStateToProps = (state: AppStateType): InitialStateType => {
     return (
         {
