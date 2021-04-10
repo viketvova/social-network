@@ -5,6 +5,7 @@ import {followAC, InitialStateType, setUsersAC, UsersDataProps} from "../../redu
 import {Users} from './Users';
 
 
+
 type MapDispatchToPropsType = {
     followHandler: (userId: string) => void
     setUsersHandler: (users: UsersDataProps) => void
