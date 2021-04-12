@@ -8,26 +8,54 @@ type UsersProps = {
     usersData: UsersDataProps
     followHandler: (userId: string) => void
     setUsersHandler: (users: UsersDataProps) => void
+    setCurrentPage: (currentPage: number) => void
+    setTotalUsersCount: (totalCount: number) => void
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
 }
 
 
 export class Users extends React.Component<UsersProps> {
 
-
-    getUsers = () => {
-        if (this.props.usersData.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => {
-                    this.props.setUsersHandler(response.data.items)
-                })
-        }
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsersHandler(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
     }
 
+    onPageChanged = (page) => {
+        this.props.setCurrentPage(page)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsersHandler(response.data.items)
+
+            })
+    }
     render() {
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+        let pages: Array<number> = []
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+
         return (
             <div>
-                Users here!
-                <button onClick={this.getUsers}>Get Users</button>
+                <div>
+                    {
+                        pages.map((page, index) => {
+                            return (
+                                <span
+                                    className={this.props.currentPage === page ? classes.selectedPage : ''}
+                                    key={index}
+                                    onClick={(e) => this.onPageChanged(page)}
+                                >{page}</span>
+                            )
+                        })
+                    }
+                </div>
                 {
                     this.props.usersData.map(elem => {
                         const onClickHandler = () => {
