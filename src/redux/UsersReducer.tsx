@@ -26,7 +26,7 @@ const initialState = {
     usersData: [] as UsersDataProps,
     pageSize: 5 as number,
     totalUsersCount: 0 as number,
-    currentPage: 3 as number,
+    currentPage: 1 as number,
 
 }
 
