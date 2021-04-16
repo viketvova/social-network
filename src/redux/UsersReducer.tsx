@@ -14,7 +14,7 @@ export type setUsersType = {
     type: 'SET USERS',
     users: UsersDataProps
 }
-export type setCurrentPage = {
+export type setCurrentPageType = {
     type: 'SET_CURRENT_PAGE',
     currentPage: number
 }
@@ -66,11 +66,11 @@ let usersReducer = (state: InitialStateType = initialState, action: any): Initia
             return state
     }
 }
-export const followAC = (userId): FollowACType => ({type: FOLLOW, userId})
-export const setUsersAC = (users): setUsersType => ({type: SET_USERS, users})
-export const setCurrentPageAC = (currentPage): setCurrentPage => ({type: SET_CURRENT_PAGE, currentPage})
-export const setTotalUsersCountAC = (count): setTotalUsersCountPage => ({type: SET_TOTAL_USERS_COUNT, count})
-export const setIsFetchingAC = (isFetching): setIsFetchingPage => ({type: TOGGLE_IS_FETCHING, isFetching})
+export const followHandler = (userId): FollowACType => ({type: FOLLOW, userId})
+export const setUsersHandler = (users): setUsersType => ({type: SET_USERS, users})
+export const setCurrentPage = (currentPage): setCurrentPageType => ({type: SET_CURRENT_PAGE, currentPage})
+export const setTotalUsersCount = (count): setTotalUsersCountPage => ({type: SET_TOTAL_USERS_COUNT, count})
+export const setIsFetching = (isFetching): setIsFetchingPage => ({type: TOGGLE_IS_FETCHING, isFetching})
 
 
 export default usersReducer

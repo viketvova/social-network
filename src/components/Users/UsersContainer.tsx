@@ -1,28 +1,19 @@
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
+// import {Dispatch} from "redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
-    followAC,
+    followHandler,
     InitialStateType,
-    setCurrentPageAC,
-    setIsFetchingAC,
-    setTotalUsersCountAC,
-    setUsersAC,
+    setCurrentPage,
+    setIsFetching,
+    setTotalUsersCount,
+    setUsersHandler,
     UsersDataProps
 } from "../../redux/UsersReducer";
 import React from "react";
 import axios from "axios";
 import {Users} from "./Users";
-import { Preloader } from "../common/Preloader/Preloader";
-
-
-type MapDispatchToPropsType = {
-    followHandler: (userId: string) => void
-    setUsersHandler: (users: UsersDataProps) => void
-    setCurrentPage: (CurrentPage: number) => void
-    setTotalUsersCount: (totalCount: number) => void
-    setIsFetching: (isFetching: boolean) => void
-}
+import {Preloader} from "../common/Preloader/Preloader";
 
 type UsersProps = {
     usersData: UsersDataProps
@@ -63,7 +54,7 @@ class AllUsersContainer extends React.Component<UsersProps> {
 
         return (
             <>
-                {this.props.isFetching ? <Preloader /> : null}
+                {this.props.isFetching ? <Preloader/> : null}
                 <Users
                     totalUsersCount={this.props.totalUsersCount}
                     pageSize={this.props.pageSize}
@@ -71,7 +62,6 @@ class AllUsersContainer extends React.Component<UsersProps> {
                     onPageChanged={this.onPageChanged}
                     usersData={this.props.usersData}
                     followHandler={this.props.followHandler}
-
                 />
             </>
         )
@@ -88,25 +78,11 @@ let mapStateToProps = (state: AppStateType): InitialStateType => {
     }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-    return {
-        followHandler: (userId) => {
-            dispatch(followAC(userId))
-        },
-        setUsersHandler: (users) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (pageNumber) => {
-            dispatch(setCurrentPageAC(pageNumber))
-        },
-        setTotalUsersCount: (totalCount) => {
-            dispatch(setTotalUsersCountAC(totalCount))
-        },
-        setIsFetching: (isFetching) => {
-            dispatch(setIsFetchingAC(isFetching))
-        }
-    }
-}
-
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(AllUsersContainer);
+export const UsersContainer = connect(mapStateToProps, {
+    followHandler,
+    setUsersHandler,
+    setCurrentPage,
+    setTotalUsersCount,
+    setIsFetching
+})(AllUsersContainer);
 
