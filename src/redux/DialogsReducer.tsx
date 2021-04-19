@@ -1,63 +1,43 @@
 import {v1} from "uuid";
 
-const CHANGE_MESSAGE = 'CHANGE-MESSAGE';
-const MESSAGE_HANDLER = 'MESSAGE-HANDLER';
-
-
-export type MessageDataProps = { id: string, text: string }[]
-export type DialogsDataProps = { id: string, name: string }[]
-export type NewDialogType = string
-export type ChangeMessageType = {
-    type: 'CHANGE-MESSAGE',
-}
-export type OnChangeHandlerMessageType = {
-    type: 'MESSAGE-HANDLER',
-    newDialog: string
-}
+export type InitialStateType = typeof initialState
 
 const initialState = {
     messageData: [
-        {id: v1(), text: 'Hi'},
-        {id: v1(), text: 'How r u?'},
-        {id: v1(), text: 'Fine, and u?'},
-    ] as MessageDataProps,
+        {id: v1(), text: 'Hi, how are you'},
+        {id: v1(), text: 'Hi, how are you'},
+        {id: v1(), text: 'Hi, how are you'},
+    ],
     dialogsData: [
-        {id: v1(), name: 'Andrew'},
-        {id: v1(), name: 'Mary'},
-        {id: v1(), name: 'Tony'},
-        {id: v1(), name: 'Ann'},
-    ] as DialogsDataProps,
-    newDialog: '' as NewDialogType
+        {id: v1(), name: 'Viktor'},
+        {id: v1(), name: 'Vova'},
+        {id: v1(), name: 'Koljan4ick'}
+    ],
+    newDialog: ''
 }
-export type InitialStateType = typeof initialState
+
 
 let dialogsReducer = (state: InitialStateType = initialState, action): InitialStateType => {
-
     switch (action.type) {
-        case CHANGE_MESSAGE:
+        case 'CHANGE_HANDLER':
+            return {
+                ...state, newDialog: action.text
+            }
+        case 'CLICK_HANDLER':
             let newMessage = {
-                id: v1(),
-                text: state.newDialog,
+                id: v1(), text: state.newDialog
             }
             return {
                 ...state,
-                newDialog: '',
-                messageData: [...state.messageData, newMessage]
-            }
-        case MESSAGE_HANDLER:
-            return {
-                ...state,
-                newDialog: action.newDialog
+                messageData: [...state.messageData, newMessage],
+                newDialog: ''
             }
         default:
-            return (state)
+            return state
     }
 }
 
-export const changeMessageActionCreator = (): ChangeMessageType => ({type: CHANGE_MESSAGE})
-export const onChangeHandlerActionCreator = (text: string): OnChangeHandlerMessageType => ({
-    type: MESSAGE_HANDLER,
-    newDialog: text
-})
+export const dispatchChangeHandler = (text: string) => ({type: 'CHANGE_HANDLER', text})
+export const dispatchClickHandler = () => ({type: 'CLICK_HANDLER'})
 
 export default dialogsReducer

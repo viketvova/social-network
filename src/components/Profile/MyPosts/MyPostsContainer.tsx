@@ -1,36 +1,26 @@
-import {InitialStateType, onClickHandlerActionCreator, onPostChangeActionCreator} from "../../../redux/ProfileReducer";
-import {MyPosts} from "./MyPosts";
+import {InitialStateType, onChangeHandlerAC, updateNewPostTextAC} from "../../../redux/ProfileReducer"
+import {AppStateType} from "../../../redux/redux-store"
+import {MyPosts} from "./MyPosts"
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
-import {AppStateType} from "../../../redux/redux-store";
-
-
-type MapDispatchToPropsType = {
-    updateNewPostText: (text: string) => void,
-    onChangeHandler: () => void
-}
 
 let mapStateToProps = (state: AppStateType): InitialStateType => {
-    return (
-        {
-            newPostText: state.profilePage.newPostText,
-            postsData: state.profilePage.postsData
-        }
-    )
+    return {
+        postsData: state.profilePage.postsData,
+        newPostText: state.profilePage.newPostText,
+        profile: state.profilePage.profile
+    }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-    return (
-        {
-            updateNewPostText: (text: string) => {
-                dispatch(onPostChangeActionCreator(text))
-            },
-            onChangeHandler: () => {
-                dispatch(onClickHandlerActionCreator())
-            }
+let mapDispatchToProps = (dispatch) => {
+    return {
+        onChangeHandler: () => {
+            dispatch(onChangeHandlerAC())
+        },
+        updateNewPostText: (text) => {
+            dispatch(updateNewPostTextAC(text))
         }
-    )
+    }
 }
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 
-export default MyPostsContainer
+
+export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)

@@ -2,7 +2,8 @@ import classes from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 import React from "react";
 import Button from '@material-ui/core/Button';
-import {PostsDataProps} from "../../../redux/ProfileReducer";
+import { PostsDataProps } from "../../../redux/ProfileReducer";
+
 
 
 type PropsType = {

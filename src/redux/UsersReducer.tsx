@@ -26,6 +26,8 @@ export type setIsFetchingPage = {
     type: 'TOGGLE_IS_FETCHING',
     isFetching: boolean
 }
+export type ActionType = FollowACType | setUsersType | setCurrentPageType | setTotalUsersCountPage | setIsFetchingPage
+export type InitialStateType = typeof initialState
 
 const initialState = {
     usersData: [] as UsersDataProps,
@@ -35,10 +37,7 @@ const initialState = {
     isFetching: false
 }
 
-export type InitialStateType = typeof initialState
-
-let usersReducer = (state: InitialStateType = initialState, action: any): InitialStateType => {
-
+let usersReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -66,6 +65,7 @@ let usersReducer = (state: InitialStateType = initialState, action: any): Initia
             return state
     }
 }
+
 export const followHandler = (userId): FollowACType => ({type: FOLLOW, userId})
 export const setUsersHandler = (users): setUsersType => ({type: SET_USERS, users})
 export const setCurrentPage = (currentPage): setCurrentPageType => ({type: SET_CURRENT_PAGE, currentPage})

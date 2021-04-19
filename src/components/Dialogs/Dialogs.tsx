@@ -1,22 +1,20 @@
 import classes from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import {DialogsDataProps, MessageDataProps, NewDialogType} from '../../redux/DialogsReducer';
+// import {DialogsDataProps, MessageDataProps, NewDialogType} from '../../redux/DialogsReducer';
+//
+//
+// type DialogsPropsType = {
+//     newDialog: NewDialogType
+//     dialogsData: DialogsDataProps
+//     messageData: MessageDataProps
+//     dispatchChangeHandler: (text: string) => void
+//     dispatchClickHandler: () => void
+// }
 
-
-
-type DialogsPropsType = {
-    newDialog: NewDialogType
-    dialogsData: DialogsDataProps
-    messageData: MessageDataProps
-    dispatchChangeHandler: (text: string) => void
-    dispatchClickHandler: () => void
-}
-
-export function Dialogs(props: DialogsPropsType) {
+export function Dialogs(props: any) {
 
     function onChangeHandler(e) {
         let text = e.target.value

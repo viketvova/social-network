@@ -1,6 +1,7 @@
 import classes from "./Users.module.css";
 import photo from "../../assets/img/avatar-icon.png";
 import React from "react";
+import {NavLink} from "react-router-dom";
 import {UsersDataProps} from "../../redux/UsersReducer";
 
 type UsersProps = {
@@ -43,8 +44,11 @@ export let Users = (props: UsersProps) => {
                         <div key={elem.id}>
                             <span>
                                 <div>
+                                    <NavLink to={'./profile/' + elem.id}>
                                     <img src={elem.photos.small ? elem.photos.small : photo}
-                                         className={classes.userPhoto} alt={elem.name}/>
+                                         className={classes.userPhoto} alt={elem.name}
+                                    />
+                                        </NavLink>
                                 </div>
                                 <div>
                                     <button onClick={onClickHandler}>{elem.status ? 'Unfollow' : 'Follow'}</button>
@@ -62,6 +66,6 @@ export let Users = (props: UsersProps) => {
                     )
                 })
             }
-        </div>
-    )
-}
+                </div>
+                )
+            }

@@ -3,13 +3,14 @@ import {Route, Switch} from "react-router-dom";
 import './App.css';
 import {Header} from "./components/Header/Header";
 import {Footer} from "./components/Footer/Footer";
-import {Profile} from "./components/Profile/Profile";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import NavBarContainer from './components/NavBar/NavBarContainer';
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import { UsersContainer } from './components/Users/UsersContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
+
 
 
 const App = () => {
@@ -20,8 +21,8 @@ const App = () => {
             <NavBarContainer/>
             <div className='app-wrapper-content'>
                 <Switch>
-                    <Route path='/profile' exact render={() =>
-                        <Profile/>}/>
+                    <Route path='/profile/' render={() =>
+                        <ProfileContainer />}/>
                     <Route path='/dialogs' exact render={() =>
                         <DialogsContainer/>}/>
                     <Route path='/users' exact render={() =>
