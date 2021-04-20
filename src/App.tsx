@@ -21,7 +21,7 @@ const App = () => {
             <NavBarContainer/>
             <div className='app-wrapper-content'>
                 <Switch>
-                    <Route path='/profile/' render={() =>
+                    <Route path='/profile/:userId?' render={() =>
                         <ProfileContainer />}/>
                     <Route path='/dialogs' exact render={() =>
                         <DialogsContainer/>}/>

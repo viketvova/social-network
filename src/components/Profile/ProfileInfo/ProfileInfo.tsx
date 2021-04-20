@@ -1,9 +1,9 @@
 import classes from './ProfileInfo.module.css'
 import {Preloader} from "../../common/Preloader/Preloader";
+import {RouterPropsType} from "../ProfileContainer";
 
 
-
-export function ProfileInfo(props: any) {
+export function ProfileInfo(props: RouterPropsType) {
 
     if(!props.profile) {
         return <Preloader />
