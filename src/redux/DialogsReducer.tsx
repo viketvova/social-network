@@ -2,6 +2,9 @@ import {v1} from "uuid";
 
 export type InitialStateType = typeof initialState
 
+const CHANGE_HANDLER = 'CHANGE_HANDLER'
+const CLICK_HANDLER = 'CLICK_HANDLER'
+
 const initialState = {
     messageData: [
         {id: v1(), text: 'Hi, how are you'},
@@ -19,11 +22,11 @@ const initialState = {
 
 let dialogsReducer = (state: InitialStateType = initialState, action): InitialStateType => {
     switch (action.type) {
-        case 'CHANGE_HANDLER':
+        case CHANGE_HANDLER:
             return {
                 ...state, newDialog: action.text
             }
-        case 'CLICK_HANDLER':
+        case CLICK_HANDLER:
             let newMessage = {
                 id: v1(), text: state.newDialog
             }
@@ -37,7 +40,7 @@ let dialogsReducer = (state: InitialStateType = initialState, action): InitialSt
     }
 }
 
-export const dispatchChangeHandler = (text: string) => ({type: 'CHANGE_HANDLER', text})
-export const dispatchClickHandler = () => ({type: 'CLICK_HANDLER'})
+export const dispatchChangeHandler = (text: string) => ({type: CHANGE_HANDLER, text})
+export const dispatchClickHandler = () => ({type: CLICK_HANDLER})
 
 export default dialogsReducer
