@@ -3,11 +3,16 @@ const SET_USERS = 'SET USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const UNFOLLOW = 'UNFOLLOW'
 
 export type PhotosType = { small: string, big: string }
-export type UsersDataProps = { id: string, name: string, uniqueUrlName: string | null, text: string, photos: PhotosType, status: boolean }[]
+export type UsersDataProps = { id: string, name: string, uniqueUrlName: string | null, text: string, photos: PhotosType, followed: boolean }[]
 export type FollowACType = {
     type: 'FOLLOW',
+    userId: string
+}
+export type UnFollowACType = {
+    type: 'UNFOLLOW',
     userId: string
 }
 export type setUsersType = {
@@ -26,7 +31,7 @@ export type setIsFetchingPage = {
     type: 'TOGGLE_IS_FETCHING',
     isFetching: boolean
 }
-export type ActionType = FollowACType | setUsersType | setCurrentPageType | setTotalUsersCountPage | setIsFetchingPage
+export type ActionType = FollowACType | setUsersType | setCurrentPageType | setTotalUsersCountPage | setIsFetchingPage | UnFollowACType
 export type InitialStateType = typeof initialState
 
 const initialState = {
@@ -44,7 +49,17 @@ let usersReducer = (state: InitialStateType = initialState, action: ActionType):
                 ...state,
                 usersData: state.usersData.map(u => {
                     if (u.id === action.userId) {
-                        return {...u, status: !u.status}
+                        return {...u, followed: true}
+                    }
+                    return u
+                })
+            }
+        case UNFOLLOW:
+            return {
+                ...state,
+                usersData: state.usersData.map(u => {
+                    if (u.id === action.userId) {
+                        return {...u, followed: false}
                     }
                     return u
                 })
@@ -67,6 +82,7 @@ let usersReducer = (state: InitialStateType = initialState, action: ActionType):
 }
 
 export const followHandler = (userId): FollowACType => ({type: FOLLOW, userId})
+export const unFollowHandler = (userId): UnFollowACType => ({type: UNFOLLOW, userId})
 export const setUsersHandler = (users): setUsersType => ({type: SET_USERS, users})
 export const setCurrentPage = (currentPage): setCurrentPageType => ({type: SET_CURRENT_PAGE, currentPage})
 export const setTotalUsersCount = (count): setTotalUsersCountPage => ({type: SET_TOTAL_USERS_COUNT, count})
