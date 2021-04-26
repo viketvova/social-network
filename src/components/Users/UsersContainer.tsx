@@ -7,6 +7,7 @@ import {
     setIsFetching,
     setTotalUsersCount,
     setUsersHandler,
+    unFollowHandler,
     UsersDataProps
 } from "../../redux/UsersReducer";
 import React from "react";
@@ -17,6 +18,7 @@ import {Preloader} from "../common/Preloader/Preloader";
 type UsersProps = {
     usersData: UsersDataProps
     followHandler: (userId: string) => void
+    unFollowHandler: (userId: string) => void
     setUsersHandler: (users: UsersDataProps) => void
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalCount: number) => void
@@ -31,7 +33,9 @@ class AllUsersContainer extends React.Component<UsersProps> {
 
     componentDidMount() {
         this.props.setIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+            withCredentials: true
+        })
             .then(response => {
                 this.props.setIsFetching(false)
                 this.props.setUsersHandler(response.data.items)
@@ -42,7 +46,9 @@ class AllUsersContainer extends React.Component<UsersProps> {
     onPageChanged = (page) => {
         this.props.setIsFetching(true)
         this.props.setCurrentPage(page)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`, {
+            withCredentials: true
+        })
             .then(response => {
                 this.props.setUsersHandler(response.data.items)
                 this.props.setIsFetching(false)
@@ -61,6 +67,7 @@ class AllUsersContainer extends React.Component<UsersProps> {
                     onPageChanged={this.onPageChanged}
                     usersData={this.props.usersData}
                     followHandler={this.props.followHandler}
+                    unFollowHandler={this.props.unFollowHandler}
                 />
             </>
         )
@@ -79,6 +86,7 @@ let mapStateToProps = (state: AppStateType): InitialStateType => {
 
 export const UsersContainer = connect(mapStateToProps, {
     followHandler,
+    unFollowHandler,
     setUsersHandler,
     setCurrentPage,
     setTotalUsersCount,

@@ -1,4 +1,10 @@
-import usersReducer, {followHandler, setCurrentPage, setIsFetching, setTotalUsersCount} from "./UsersReducer";
+import usersReducer, {
+    followHandler,
+    setCurrentPage,
+    setIsFetching,
+    setTotalUsersCount,
+    UsersDataProps
+} from "./UsersReducer";
 
 
 const startState = require('./UsersReducer')
